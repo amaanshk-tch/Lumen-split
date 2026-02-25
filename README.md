@@ -47,16 +47,16 @@ LumenSplit supports multiple Stellar wallets for secure transaction signing:
 
 Ensure you have a Freighter or albedo extension installed Check that you're on Testnet (not Mainnet)
 
+<img width="262" height="187" alt="Screenshot 2026-02-26 034622" src="https://github.com/user-attachments/assets/3321032f-f2a5-46cb-805c-bcd16a24f989" />
 
 
 ---
 
 ## Screenshots
 
+<img width="1109" height="385" alt="Screenshot 2026-02-26 025422" src="https://github.com/user-attachments/assets/989ab81f-0d65-4339-b402-a601717bb94f" />
 <img width="1488" height="651" alt="image" src="https://github.com/user-attachments/assets/a3b5a3d1-198e-4715-aac9-102003c2ea4c" />
 
-
-<img width="1109" height="385" alt="Screenshot 2026-02-26 025422" src="https://github.com/user-attachments/assets/989ab81f-0d65-4339-b402-a601717bb94f" />
 
 <img width="976" height="515" alt="image" src="https://github.com/user-attachments/assets/72f1b2e3-fa7c-4c04-8d59-ef38c77f0a64" />
 
