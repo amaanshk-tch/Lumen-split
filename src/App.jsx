@@ -52,6 +52,7 @@ export default function App() {
   const [showWalletModal, setShowWalletModal] = useState(false);
   const [status, setStatus] = useState("");
   const [statusType, setStatusType] = useState("");
+  const [lastTxHash, setLastTxHash] = useState("");
   const [isBusy, setIsBusy] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [registeredName, setRegisteredName] = useState("");
@@ -91,6 +92,7 @@ export default function App() {
     setAddMemberAddress("");
     setGroupName("");
     setGroupMembersInput("");
+    setLastTxHash("");
   };
 
   const updateStatus = (msg, type = "") => {
@@ -192,7 +194,7 @@ export default function App() {
 
     const normalized = normalizeGroup(g, groupId);
     setSelectedGroup(normalized);
-    setPayer("");
+    setPayer(normalized.members.find(m => m.address === publicKey)?.address || "");
     setSettleTo("");
     const checks = {};
     normalized.members.forEach((m) => { checks[m.address] = true; });
@@ -322,6 +324,7 @@ export default function App() {
 
   const runWrite = async (method, args, okMsg) => {
     setIsBusy(true);
+    setLastTxHash("");
     updateStatus("Submitting...", "info");
     try {
       const contract = new Contract(CONTRACT_ID);
@@ -329,6 +332,7 @@ export default function App() {
         .addOperation(contract.call(method, ...args))
         .setTimeout(30));
       updateStatus("Successful", "success");
+      setLastTxHash(hash);
       console.log("Tx Hash:", hash);
       setIsBusy(false);
       refreshGroups().catch((ee) => console.error("BG Refresh failed:", ee));
@@ -522,8 +526,10 @@ export default function App() {
                     <input className="input" placeholder="Members (comma separated G...)" value={groupMembersInput} onChange={(e) => setGroupMembersInput(e.target.value)} autoComplete="off" />
                     <button className="button" onClick={async () => {
                       const name = groupName;
+                      if (!name.trim()) return updateStatus("Please enter a group name", "error");
                       const membersInput = groupMembersInput;
                       const members = parseList(membersInput).filter((a) => a !== publicKey);
+                      try { members.forEach(m => new Address(m)); } catch { return updateStatus("Invalid member address provided", "error"); }
                       updateStatus("Creating group...", "info");
                       try {
                         await runWrite("create_group", [new Address(publicKey).toScVal(), toString(name), toAddressVec(members)], "Group created");
@@ -555,6 +561,8 @@ export default function App() {
                         </div>
                         <input className="input" placeholder="New member G..." value={addMemberAddress} onChange={(e) => setAddMemberAddress(e.target.value)} autoComplete="off" />
                         <button className="button" onClick={async () => {
+                          if (!addMemberAddress.trim()) return updateStatus("Please enter a member address", "error");
+                          try { new Address(addMemberAddress); } catch { return updateStatus("Invalid member address", "error"); }
                           await runWrite("add_member", [new Address(publicKey).toScVal(), toU32(selectedGroupId), new Address(addMemberAddress).toScVal()], "Member added");
                           setAddMemberAddress("");
                         }} disabled={isBusy}>Add Member</button>
@@ -607,6 +615,9 @@ export default function App() {
                           Per person share: <strong>{share.toFixed(2)} XLM</strong>
                         </div>
                         <button className="button" onClick={async () => {
+                          if (!payer) return updateStatus("Please select a payer", "error");
+                          if (!billAmount || Number(billAmount) <= 0) return updateStatus("Please enter a valid amount", "error");
+                          if (selectedParticipants.length === 0) return updateStatus("Please select at least one participant", "error");
                           await runWrite("add_expense", [new Address(payer).toScVal(), toU32(selectedGroupId), toI128(billAmount), toAddressVec(selectedParticipants)], "Expense added");
                           setBillAmount("");
                         }} disabled={isBusy}>Add Expense</button>
@@ -630,6 +641,8 @@ export default function App() {
                         </select>
                         <input className="input" type="number" placeholder="Amount (XLM)" value={settleAmount} onChange={(e) => setSettleAmount(e.target.value)} autoComplete="off" />
                         <button className="button" onClick={async () => {
+                          if (!settleTo) return updateStatus("Please select a recipient account", "error");
+                          if (!settleAmount || Number(settleAmount) <= 0) return updateStatus("Please enter a valid amount", "error");
                           await runWrite("settle_debt", [new Address(publicKey).toScVal(), toU32(selectedGroupId), new Address(settleTo).toScVal(), toI128(settleAmount)], "Bill settled");
                           setSettleAmount("");
                         }} disabled={isBusy}>Settle Bill</button>
@@ -679,6 +692,24 @@ export default function App() {
                 )}
               </div>
             </div>
+
+            {lastTxHash && (
+              <div style={{ marginTop: "1.5rem", padding: "0.75rem", background: "rgba(46, 204, 113, 0.1)", border: "1px solid rgba(46, 204, 113, 0.3)", borderRadius: "8px", display: "flex", justifyContent: "space-between", alignItems: "center", color: "#2ecc71" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", textAlign: "left", wordBreak: "break-all", paddingRight: "1rem" }}>
+                  <span style={{ fontWeight: "bold", fontSize: "0.9rem" }}>Transaction Successful</span>
+                  <span style={{ fontSize: "0.8rem", opacity: 0.8, fontFamily: "monospace" }}>Hash: <span style={{ userSelect: "all" }}>{lastTxHash}</span></span>
+                </div>
+                <button style={{ background: "transparent", border: "none", color: "inherit", cursor: "pointer", padding: "0.25rem", margin: 0, display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.7 }} onClick={() => {
+                  navigator.clipboard.writeText(lastTxHash);
+                  updateStatus("Hash copied to clipboard!", "success");
+                }} title="Copy Hash" onMouseEnter={(e) => e.currentTarget.style.opacity = 1} onMouseLeave={(e) => e.currentTarget.style.opacity = 0.7}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>
