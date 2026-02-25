@@ -32,7 +32,6 @@ You can verify the transparency and security of LumenSplit on the Stellar Explor
 
 - **Contract ID**: `CBK7OZFRWQ35O6WDNRLF4QLIRJYLTG37FGL5XXC3OHQNZ742IF264ZNL`
 - **Verify contract**: https://lab.stellar.org/smart-contracts/contract-explorer?$=network$id=testnet&label=Testnet&horizonUrl=https:////horizon-testnet.stellar.org&rpcUrl=https:////soroban-testnet.stellar.org&passphrase=Test%20SDF%20Network%20/;%20September%202015;;
-  
 - **Verify Transactions**: https://lab.stellar.org/transaction/dashboard?$=network$id=testnet&label=Testnet&horizonUrl=https:////horizon-testnet.stellar.org&rpcUrl=https:////soroban-testnet.stellar.org&passphrase=Test%20SDF%20Network%20/;%20September%202015;;
 
 ---
@@ -47,8 +46,6 @@ LumenSplit supports multiple Stellar wallets for secure transaction signing:
 ## How to Run locally
 
 Ensure you have a Freighter or albedo extension installed Check that you're on Testnet (not Mainnet)
-
-<img width="303" height="229" alt="549660082-29bf3ec2-91c9-4e94-80c0-94fd73f53e29" src="https://github.com/user-attachments/assets/861c82bc-9bc0-4cca-afc4-8fc4ecd2da65" />
 
 ---
 
