@@ -53,6 +53,8 @@ export default function App() {
   const [status, setStatus] = useState("");
   const [statusType, setStatusType] = useState("");
   const [lastTxHash, setLastTxHash] = useState("");
+  const [lastTxTab, setLastTxTab] = useState("");
+  const [recentTransactions, setRecentTransactions] = useState([]);
   const [isBusy, setIsBusy] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [registeredName, setRegisteredName] = useState("");
@@ -93,6 +95,8 @@ export default function App() {
     setGroupName("");
     setGroupMembersInput("");
     setLastTxHash("");
+    setLastTxTab("");
+    setRecentTransactions([]);
   };
 
   const updateStatus = (msg, type = "") => {
@@ -333,6 +337,8 @@ export default function App() {
         .setTimeout(30));
       updateStatus("Successful", "success");
       setLastTxHash(hash);
+      setLastTxTab(activeTab);
+      setRecentTransactions(prev => [{ hash, action: okMsg || "Transaction", timestamp: Date.now() }, ...prev]);
       console.log("Tx Hash:", hash);
       setIsBusy(false);
       refreshGroups().catch((ee) => console.error("BG Refresh failed:", ee));
@@ -349,6 +355,7 @@ export default function App() {
     setBillAmount("");
     setSettleAmount("");
     setAddMemberAddress("");
+    setLastTxHash("");
     if (connected && publicKey) {
       refreshGroups();
       checkRegistration();
@@ -663,6 +670,32 @@ export default function App() {
 
                 {activeTab === "activity" && (
                   <div className="form-group">
+                    {recentTransactions.length > 0 && (
+                      <div style={{ marginBottom: "2rem", width: "100%", textAlign: "left" }}>
+                        <h3>My Transactions</h3>
+                        <p className="tab-hint">Your recent transactions from this session.</p>
+                        {recentTransactions.map((tx, idx) => (
+                          <div key={idx} style={{ padding: "0.75rem", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px", fontSize: "0.9rem", marginBottom: "0.5rem" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.25rem" }}>
+                              <span style={{ color: "var(--accent-glow)", fontWeight: "bold" }}>{tx.action}</span>
+                              <span style={{ opacity: 0.5, fontSize: "0.75rem" }}>{new Date(tx.timestamp).toLocaleString()}</span>
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", opacity: 0.9, marginTop: "0.4rem", padding: "0.5rem", background: "rgba(0,0,0,0.2)", borderRadius: "4px" }}>
+                              <span style={{ fontSize: "0.8rem", fontFamily: "monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", paddingRight: "1rem", userSelect: "all" }}>{tx.hash}</span>
+                              <button style={{ background: "transparent", border: "none", color: "inherit", cursor: "pointer", padding: "0.25rem", margin: 0, opacity: 0.7, display: "flex", alignItems: "center", justifyContent: "center" }} onClick={() => {
+                                navigator.clipboard.writeText(tx.hash);
+                                updateStatus("Hash copied!", "success");
+                              }} title="Copy Hash" onMouseEnter={(e) => e.currentTarget.style.opacity = 1} onMouseLeave={(e) => e.currentTarget.style.opacity = 0.7}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                     <h3>Group Activity</h3>
                     <p className="tab-hint">Recent actions within the group.</p>
                     <select className="input select-custom" value={selectedGroupId} onChange={(e) => { setSelectedGroupId(e.target.value); loadGroup(e.target.value); }} autoComplete="off">
@@ -693,7 +726,7 @@ export default function App() {
               </div>
             </div>
 
-            {lastTxHash && (
+            {lastTxHash && activeTab === lastTxTab && (
               <div style={{ marginTop: "1.5rem", padding: "0.75rem", background: "rgba(46, 204, 113, 0.1)", border: "1px solid rgba(46, 204, 113, 0.3)", borderRadius: "8px", display: "flex", justifyContent: "space-between", alignItems: "center", color: "#2ecc71" }}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", textAlign: "left", wordBreak: "break-all", paddingRight: "1rem" }}>
                   <span style={{ fontWeight: "bold", fontSize: "0.9rem" }}>Transaction Successful</span>
