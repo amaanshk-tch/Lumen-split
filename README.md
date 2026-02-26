@@ -8,6 +8,8 @@
 
 - Lumen Split enables users to: Create shared expense groups Add and split expenses between members Track who owes whom Settle balances using Stellar testnet payments View transaction history recorded on-chain, making it ideal.
 
+- You can check it out on : https://lumen-split.vercel.app/
+
 ## Key-Features
 
 - **On-Chain Registration**: Securely register your display name directly onto the Stellar ledger.
