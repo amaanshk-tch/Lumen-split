@@ -163,6 +163,11 @@
   width: 100%;
 }
 
+.form-group {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
 .form-group::-webkit-scrollbar {
   width: 4px;
 }
@@ -417,7 +422,7 @@
 
 .status {
   position: fixed;
-  top: 2rem;
+  top: 1rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3000;
@@ -427,7 +432,7 @@
   font-weight: 500;
   text-align: left;
   min-width: 200px;
-  max-width: 300px;
+  max-width: 90%;
   box-shadow:
     0 15px 30px rgba(0, 0, 0, 0.4),
     0 0 0 1px rgba(255, 255, 255, 0.05);
@@ -756,7 +761,7 @@
   width: 100%;
 }
 
-.wallet-option {
+.wallet-selector .wallet-option {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -773,14 +778,14 @@
   overflow: hidden;
 }
 
-.wallet-option:hover {
+.wallet-selector .wallet-option:hover {
   background: rgba(99, 102, 241, 0.12);
   border-color: rgba(99, 102, 241, 0.45);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(99, 102, 241, 0.2);
 }
 
-.wallet-option:active {
+.wallet-selector .wallet-option:active {
   transform: translateY(0);
 }
 
@@ -935,6 +940,8 @@
   max-height: 180px;
   overflow-y: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
 }
 
 .event-log::-webkit-scrollbar {
@@ -1165,12 +1172,7 @@
   padding: 0.55rem 0.85rem;
 }
 
-.connect-subtitle {
-  color: rgba(255, 255, 255, 0.45);
-  font-size: 0.9rem;
-  text-align: center;
-  margin: -0.5rem 0 0.5rem;
-}
+
 .profile-badge {
   display: flex;
   align-items: center;
@@ -1300,8 +1302,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .wallet-modal {
@@ -1318,8 +1324,14 @@
 }
 
 @keyframes modalUp {
-  from { transform: translateY(10px) scale(0.97); opacity: 0; }
-  to   { transform: none; opacity: 1; }
+  from {
+    transform: translateY(10px) scale(0.97);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .wallet-modal-header {
@@ -1347,7 +1359,9 @@
   justify-content: center;
   border-radius: 6px;
   box-shadow: none;
-  transition: color 0.15s, background 0.15s;
+  transition:
+    color 0.15s,
+    background 0.15s;
   width: 24px;
   height: 24px;
 }
@@ -1365,7 +1379,7 @@
   gap: 0.4rem;
 }
 
-.wallet-option {
+.wallet-modal .wallet-option {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -1374,22 +1388,23 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
   width: 100%;
   box-shadow: none;
 }
 
-.wallet-option:hover {
+.wallet-modal .wallet-option:hover {
   background: rgba(99, 102, 241, 0.1);
   border-color: rgba(99, 102, 241, 0.3);
   transform: none;
   box-shadow: none;
 }
 
-.wallet-option:active {
+.wallet-modal .wallet-option:active {
   background: rgba(99, 102, 241, 0.15);
 }
-
 
 .wallet-option-name {
   flex: 1;
@@ -1410,6 +1425,28 @@
   border: 1px solid rgba(99, 102, 241, 0.25);
   color: rgba(165, 180, 252, 0.8);
   flex-shrink: 0;
+}
+
+.wallet-option-install {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  margin-left: auto;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.wallet-option-install:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
 }
 
 .wallet-option-tag.web {
