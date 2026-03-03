@@ -56,6 +56,8 @@ Ensure you have a Freighter or albedo extension installed Check that you're on T
 
 ## Screenshots
 
+**Test passing:**<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0bf80592-969b-4541-b367-56fe4cfd321a" />
+
 <img width="1109" height="385" alt="Screenshot 2026-02-26 025422" src="https://github.com/user-attachments/assets/989ab81f-0d65-4339-b402-a601717bb94f" />
 <img width="1488" height="651" alt="image" src="https://github.com/user-attachments/assets/a3b5a3d1-198e-4715-aac9-102003c2ea4c" />
 
