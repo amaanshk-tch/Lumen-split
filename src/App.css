@@ -1454,3 +1454,25 @@
   border-color: rgba(16, 185, 129, 0.25);
   color: rgba(110, 231, 183, 0.8);
 }
+
+@media (max-width: 768px) {
+  .card.compact {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+  }
+
+  .tabs button {
+    flex: 1 1 auto;
+    font-size: 0.8rem;
+    padding: 0.6rem;
+  }
+
+  .wallet-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

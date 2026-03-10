@@ -1,0 +1,27 @@
+name: LumenSplit CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test-contract:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Add wasm target
+        run: rustup target add wasm32-unknown-unknown
+
+      - name: Run tests
+        run: cargo test
+
+      - name: Build contract
+        run: cargo build --target wasm32-unknown-unknown --release
