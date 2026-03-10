@@ -1,11 +1,15 @@
-name: LumenSplit CI.
+name: LumenSplit Full CI Pipeline
 
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  test-contract:
+
+  contract-tests:
+    name: Smart Contract Tests
     runs-on: ubuntu-latest
 
     defaults:
@@ -13,16 +17,37 @@ jobs:
         working-directory: contracts/lumen_split
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Add wasm target
+      - name: Add WASM target
         run: rustup target add wasm32-unknown-unknown
 
-      - name: Run tests
+      - name: Run contract tests
         run: cargo test
 
-      - name: Build contract
+      - name: Build Soroban contract
         run: cargo build --target wasm32-unknown-unknown --release
+
+
+  frontend-build:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build frontend
+        run: npm run build
