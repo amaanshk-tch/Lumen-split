@@ -1,4 +1,4 @@
-name: LumenSplit CI
+name: working CI pipeline
 
 on:
   push:
