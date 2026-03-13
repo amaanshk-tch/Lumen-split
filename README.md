@@ -1,4 +1,4 @@
-# LumenSplit
+# LumenSplit.
 
 **LumenSplit** is a decentralized expense-splitting application built on the **Stellar Soroban** smart contract platform. It allows groups to manage shared expenses, track balances in real-time.
 
@@ -51,7 +51,6 @@ Ensure you have a Freighter or albedo extension installed Check that you're on T
 
 <img width="262" height="187" alt="Screenshot 2026-02-26 034622" src="https://github.com/user-attachments/assets/3321032f-f2a5-46cb-805c-bcd16a24f989" />
 
-
 ---
 
 ## Screenshots
@@ -60,18 +59,12 @@ Ensure you have a Freighter or albedo extension installed Check that you're on T
 
 <img width="906" height="310" alt="image" src="https://github.com/user-attachments/assets/85ce5310-d0a5-4af1-bcb2-0a017b505ed5" />
 
-
 <img width="1109" height="385" alt="Screenshot 2026-02-26 025422" src="https://github.com/user-attachments/assets/989ab81f-0d65-4339-b402-a601717bb94f" />
 <img width="1488" height="651" alt="image" src="https://github.com/user-attachments/assets/a3b5a3d1-198e-4715-aac9-102003c2ea4c" />
-
 
 <img width="976" height="515" alt="image" src="https://github.com/user-attachments/assets/72f1b2e3-fa7c-4c04-8d59-ef38c77f0a64" />
 
 <img width="1504" height="643" alt="image" src="https://github.com/user-attachments/assets/e4cffe8a-bcc4-40d9-99fb-d0aae58a6a75" />
-
-
-
-
 
 ## Future Roadmap
 
