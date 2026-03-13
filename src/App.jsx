@@ -18,7 +18,7 @@ import {
   rpc,
   scValToNative,
   xdr,
-} from "stellar-sdk";
+} from "@stellar/stellar-sdk";
 import "./App.css";
 
 const HORIZON_URL = "https://horizon-testnet.stellar.org";
