@@ -12,6 +12,7 @@ import {
   BASE_FEE,
   Contract,
   Horizon,
+  Transaction,
   TransactionBuilder,
   nativeToScVal,
   rpc,
@@ -23,7 +24,7 @@ import "./App.css";
 const HORIZON_URL = "https://horizon-testnet.stellar.org";
 const NETWORK_PASSPHRASE = "Test SDF Network ; September 2015";
 const NETWORK_LABEL = "TESTNET";
-const CONTRACT_ID = "CBK7OZFRWQ35O6WDNRLF4QLIRJYLTG37FGL5XXC3OHQNZ742IF264ZNL";
+const CONTRACT_ID = "CB5EHFLY7SQ3EF4P2XSDO7AP343WSAGLIHQPSOEYYXG7MOQHOSISPYBC";
 
 const WALLET_TYPES = {
   FREIGHTER: "Freighter",
@@ -45,18 +46,34 @@ const STROOPS_PER_XLM = 10000000n;
 const formatAmount = (v) => (Number(v || 0) / 10000000).toFixed(2);
 
 const ACTIVITY_TYPES = {
-  1: "Expense",
-  2: "Settlement",
-  3: "MemberAdded",
+  Expense: "Expense",
+  Settlement: "Settlement",
+  MemberAdded: "MemberAdded",
+  0: "Expense",
+  1: "Settlement",
+  2: "MemberAdded",
 };
 
 const safeDecode = (val) => {
+  if (!val) return val;
   try {
-    if (typeof val === "string")
-      return scValToNative(xdr.ScVal.fromXDR(val, "base64"));
-    if (val && typeof val.switch === "function") return scValToNative(val);
+    if (typeof val.switch === "function") {
+      return scValToNative(val);
+    }
+    if (typeof val === "string") {
+      const likelyXDR = /^(AAAA|AAAAC|AAAAE|AAAAA)/.test(val);
+      if (likelyXDR && val.length >= 8) {
+        try {
+          return scValToNative(xdr.ScVal.fromXDR(val, "base64"));
+        } catch (inner) {
+          // Fallback if it wasn't valid XDR
+          return val;
+        }
+      }
+    }
     return val;
-  } catch {
+  } catch (e) {
+    console.debug("safeDecode skipped for value:", val);
     return val;
   }
 };
@@ -105,6 +122,7 @@ export default function App() {
     setXlmBalance("0");
     setIsRegistered(false);
     setRegisteredName("");
+    setRegInputName("");
     setGroups([]);
     setSelectedGroupId("");
     setSelectedGroup(null);
@@ -300,10 +318,13 @@ export default function App() {
           .map((a) => ({
             id: Number(a.id?.toString ? a.id.toString() : a.id || 0),
             kind:
+              ACTIVITY_TYPES[a.kind?.toString ? a.kind.toString() : a.kind] ||
               ACTIVITY_TYPES[Number(a.kind)] ||
-              (a.kind?.toString ? a.kind.toString() : a.kind),
+              (a.kind?.toString ? a.kind.toString() : "Activity"),
             actor: a.actor?.toString ? a.actor.toString() : "",
-            recipient: a.recipient?.toString ? a.recipient.toString() : "",
+            recipient: Array.isArray(a.recipient) 
+              ? (a.recipient[0]?.toString ? a.recipient[0].toString() : "")
+              : (a.recipient?.toString ? a.recipient.toString() : ""),
             amount: Number(
               a.amount?.toString ? a.amount.toString() : a.amount || 0,
             ),
@@ -414,7 +435,9 @@ export default function App() {
     }
 
     const finalTx = TransactionBuilder.fromXDR(signed, NETWORK_PASSPHRASE);
-    const result = await soroban.sendTransaction(finalTx);
+    const result = await (finalTx instanceof Transaction 
+      ? soroban.sendTransaction(finalTx)
+      : soroban.sendTransaction(new Transaction(signed, NETWORK_PASSPHRASE)));
     console.log("Tx Submitted. Status:", result.status, "Hash:", result.hash);
 
     if (result.status === "ERROR") {
@@ -497,6 +520,9 @@ export default function App() {
     setBillAmount("");
     setSettleAmount("");
     setAddMemberAddress("");
+    setRegInputName("");
+    setGroupName("");
+    setGroupMembersInput("");
     setLastTxHash("");
     if (connected && publicKey) {
       refreshGroups();

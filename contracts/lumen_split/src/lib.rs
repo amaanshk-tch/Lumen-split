@@ -32,9 +32,9 @@ pub enum DataKey {
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum ActivityType {
-    Expense = 1,
-    Settlement = 2,
-    MemberAdded = 3,
+    Expense,
+    Settlement,
+    MemberAdded,
 }
 
 #[contracttype]
@@ -166,7 +166,6 @@ impl LumenSplit {
                 .persistent()
                 .set(&DataKey::Balance(counter, member.clone()), &0i128);
 
-            // Add group to member's list
             let mut member_groups: Vec<u32> = env
                 .storage()
                 .persistent()
@@ -183,7 +182,7 @@ impl LumenSplit {
         Self::record_activity(
             &env,
             counter,
-            ActivityType::MemberAdded, // Borrowing MemberAdded for creation for simplicity, or we could add a GroupCreated type
+            ActivityType::MemberAdded,
             creator.clone(),
             None,
             0,

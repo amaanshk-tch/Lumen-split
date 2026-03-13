@@ -6,7 +6,7 @@ use soroban_sdk::{testutils::Address as _, vec, Address, Env};
 #[test]
 fn test_create_group() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, LumenSplit);
+    let contract_id = env.register(LumenSplit, ());
     let client = LumenSplitClient::new(&env, &contract_id);
 
     let creator = Address::generate(&env);
@@ -39,7 +39,7 @@ fn test_create_group() {
 #[test]
 fn test_add_expense_equal_split() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, LumenSplit);
+    let contract_id = env.register(LumenSplit, ());
     let client = LumenSplitClient::new(&env, &contract_id);
 
     let creator = Address::generate(&env);
@@ -68,7 +68,7 @@ fn test_add_expense_equal_split() {
 #[test]
 fn test_settle_debt() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, LumenSplit);
+    let contract_id = env.register(LumenSplit, ());
     let client = LumenSplitClient::new(&env, &contract_id);
 
     let creator = Address::generate(&env);
@@ -105,7 +105,7 @@ fn test_settle_debt() {
 #[test]
 fn test_add_expense_non_member() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, LumenSplit);
+    let contract_id = env.register(LumenSplit, ());
     let client = LumenSplitClient::new(&env, &contract_id);
 
     let creator = Address::generate(&env);
@@ -126,7 +126,7 @@ fn test_add_expense_non_member() {
 #[test]
 fn test_add_member() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, LumenSplit);
+    let contract_id = env.register(LumenSplit, ());
     let client = LumenSplitClient::new(&env, &contract_id);
 
     let creator = Address::generate(&env);
@@ -159,7 +159,7 @@ fn test_add_member() {
 #[should_panic(expected = "HostError: Error(Contract, #3)")]
 fn test_settle_debt_safety_over_settle() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, LumenSplit);
+    let contract_id = env.register(LumenSplit, ());
     let client = LumenSplitClient::new(&env, &contract_id);
 
     let creator = Address::generate(&env);
@@ -191,7 +191,7 @@ fn test_settle_debt_safety_over_settle() {
 #[should_panic(expected = "HostError: Error(Contract, #3)")]
 fn test_settle_debt_safety_no_debt() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, LumenSplit);
+    let contract_id = env.register(LumenSplit, ());
     let client = LumenSplitClient::new(&env, &contract_id);
 
     let creator = Address::generate(&env);
@@ -216,7 +216,7 @@ fn test_settle_debt_safety_no_debt() {
 #[should_panic(expected = "HostError: Error(Contract, #6)")]
 fn test_create_group_unregistered_member() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, LumenSplit);
+    let contract_id = env.register(LumenSplit, ());
     let client = LumenSplitClient::new(&env, &contract_id);
 
     let creator = Address::generate(&env);
@@ -238,7 +238,7 @@ fn test_create_group_unregistered_member() {
 #[should_panic(expected = "HostError: Error(Contract, #6)")]
 fn test_add_unregistered_member() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, LumenSplit);
+    let contract_id = env.register(LumenSplit, ());
     let client = LumenSplitClient::new(&env, &contract_id);
 
     let creator = Address::generate(&env);
@@ -258,7 +258,7 @@ fn test_add_unregistered_member() {
 #[test]
 fn test_activity_log() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, LumenSplit);
+    let contract_id = env.register(LumenSplit, ());
     let client = LumenSplitClient::new(&env, &contract_id);
 
     let creator = Address::generate(&env);
