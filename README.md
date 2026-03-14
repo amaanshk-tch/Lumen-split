@@ -10,6 +10,10 @@
 
 - You can check it out on : https://lumen-split.vercel.app/
 
+## Demo video
+
+**Video link:**https://drive.google.com/drive/folders/1dazL-pU9Xx-QJf6JmqzzHe9ll5TZTXZg?usp=drive_link
+
 ## Key-Features
 
 - **On-Chain Registration**: Securely register your display name directly onto the Stellar ledger.
