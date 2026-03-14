@@ -59,8 +59,11 @@ Ensure you have a Freighter or albedo extension installed Check that you're on T
 
 ## Screenshots
 
-**Mobile responsive:**
 
+![App Screenshot](Screenshots/cicd.png)
+
+
+**Mobile responsive:**
 
 ![App Screenshot](Screenshots/main.jpeg)
 
