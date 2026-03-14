@@ -65,8 +65,6 @@ Ensure you have a Freighter or albedo extension installed Check that you're on T
 
 **Mobile responsive:**
 
-![App Screenshot](Screenshots/main.jpeg)
-
 ![App Screenshot](Screenshots/front.jpeg)
 
 **Test passing:**
