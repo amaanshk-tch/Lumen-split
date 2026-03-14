@@ -12,7 +12,7 @@
 
 ## Demo video
 
-**Video link:**https://drive.google.com/drive/folders/1dazL-pU9Xx-QJf6JmqzzHe9ll5TZTXZg?usp=drive_link
+**Video link:** https://drive.google.com/file/d/1psEz7BAG9zm2htJxds0c3dNxgSRcKda2/view?usp=drive_link
 
 ## Key-Features
 
