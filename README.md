@@ -32,7 +32,7 @@
 
 ---
 
-## Deployed Contract & Verification
+## Deployed Contract & Verification.
 
 You can verify the transparency and security of LumenSplit on the Stellar Explorer (Testnet).
 
