@@ -36,7 +36,7 @@
 
 You can verify the transparency and security of LumenSplit on the Stellar Explorer (Testnet).
 
-- **Contract ID**: `CB5EHFLY7SQ3EF4P2XSDO7AP343WSAGLIHQPSOEYYXG7MOQHOSISPYBC`
+- **Contract ID**: `CBRY2H3DOGBBO3NKECWQWXKXS3A2DLOIKJMA2DPVXAE5JF62S24IWDHV`
 - **Verify contract**: https://lab.stellar.org/smart-contracts/contract-explorer?$=network$id=testnet&label=Testnet&horizonUrl=https:////horizon-testnet.stellar.org&rpcUrl=https:////soroban-testnet.stellar.org&passphrase=Test%20SDF%20Network%20/;%20September%202015;;
 - **Verify Transactions**: https://lab.stellar.org/transaction/dashboard?$=network$id=testnet&label=Testnet&horizonUrl=https:////horizon-testnet.stellar.org&rpcUrl=https:////soroban-testnet.stellar.org&passphrase=Test%20SDF%20Network%20/;%20September%202015;;
 
@@ -59,9 +59,7 @@ Ensure you have a Freighter or albedo extension installed Check that you're on T
 
 ## Screenshots
 
-
 ![App Screenshot](Screenshots/cicd.png)
-
 
 **Mobile responsive:**
 
