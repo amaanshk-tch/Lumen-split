@@ -7,10 +7,12 @@ on:
     branches: [main]
 
 jobs:
-
   contract-tests:
     name: Smart Contract Tests
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: contracts/lumen_split
 
     steps:
       - name: Checkout repository
@@ -23,11 +25,10 @@ jobs:
           targets: wasm32-unknown-unknown
 
       - name: Run contract tests
-        run: cargo test --package lumen_split
+        run: cargo test
 
       - name: Build Soroban contract
-        run: cargo build --package lumen_split --target wasm32-unknown-unknown --release
-
+        run: cargo build --target wasm32-unknown-unknown --release
 
   frontend-build:
     name: Frontend Build
