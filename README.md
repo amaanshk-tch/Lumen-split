@@ -68,7 +68,7 @@ Ensure you have a Freighter or albedo extension installed Check that you're on T
 
 ## Screenshots
 
-![App Screenshot](Screenshots/cicd.png)
+<img width="1418" height="115" alt="image" src="https://github.com/user-attachments/assets/b1445002-a1e9-4465-82e8-aa625eef0e59" />
 
 **Mobile responsive:**
 
