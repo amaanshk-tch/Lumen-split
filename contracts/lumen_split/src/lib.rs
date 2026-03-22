@@ -171,7 +171,7 @@ impl LumenSplit {
                 .persistent()
                 .get(&DataKey::MemberGroups(member.clone()))
                 .unwrap_or(Vec::new(&env));
-            if !member_groups.contains(&counter) {
+            if !member_groups.contains(counter) {
                 member_groups.push_back(counter);
                 env.storage()
                     .persistent()
@@ -335,7 +335,7 @@ impl LumenSplit {
             .persistent()
             .get(&DataKey::MemberGroups(new_member.clone()))
             .unwrap_or(Vec::new(&env));
-        if !member_groups.contains(&group_id) {
+        if !member_groups.contains(group_id) {
             member_groups.push_back(group_id);
             env.storage()
                 .persistent()
@@ -505,7 +505,7 @@ impl LumenSplit {
 
         let mut settlements: Vec<Settlement> = Vec::new(&env);
 
-        while (debtors.len() > 0) && (creditors.len() > 0) {
+        while !debtors.is_empty() && !creditors.is_empty() {
             let (d_addr, d_amt) = debtors.get(0).unwrap().clone();
             let (c_addr, c_amt) = creditors.get(0).unwrap().clone();
 

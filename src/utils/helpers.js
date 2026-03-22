@@ -13,13 +13,13 @@ export const safeDecode = (val) => {
       if (likelyXDR && val.length >= 8) {
         try {
           return scValToNative(xdr.ScVal.fromXDR(val, "base64"));
-        } catch (inner) {
+        } catch {
           return val;
         }
       }
     }
     return val;
-  } catch (e) {
+  } catch {
     console.debug("safeDecode skipped for value:", val);
     return val;
   }

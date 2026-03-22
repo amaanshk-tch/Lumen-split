@@ -66,7 +66,7 @@ export const useRegistration = (publicKey, updateStatus, runWrite) => {
       setTimeout(() => {
         justRegistered.current = false;
       }, 10000);
-    } catch (e) {
+    } catch {
       setIsRegistered(false);
       setRegisteredName("");
     }

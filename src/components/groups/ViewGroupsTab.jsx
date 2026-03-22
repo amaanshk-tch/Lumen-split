@@ -1,7 +1,6 @@
 import React from "react";
 import { Address } from "@stellar/stellar-sdk";
 import { toU32 } from "../../utils/sorobanUtils";
-import { formatAmount } from "../../utils/formatters";
 import GroupMembersList from "./GroupMembersList";
 import ExpenseHistoryList from "./ExpenseHistoryList";
 import GroupSelector from "./GroupSelector";

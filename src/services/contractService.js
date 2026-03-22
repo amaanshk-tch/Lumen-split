@@ -34,7 +34,6 @@ export const callRead = async (publicKey, method, args = []) => {
 };
 
 export const signAndSubmit = async (publicKey, selectedWallet, buildFn) => {
-  const tx = buildFn(new Account(publicKey, "0")).build();
   const { server } = await import("./stellarService");
   
   let account;
@@ -83,11 +82,12 @@ export const signAndSubmit = async (publicKey, selectedWallet, buildFn) => {
       });
       const json = await rawResp.json();
       status = json?.result?.status || "PENDING";
-    } catch (e) {
+    } catch {
       try {
         const sdkResp = await soroban.getTransaction(result.hash);
         status = sdkResp.status;
-      } catch {}
+      } catch {
+      }
     }
 
     const upStatus = String(status || "PENDING").toUpperCase();

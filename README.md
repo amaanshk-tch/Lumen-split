@@ -45,7 +45,7 @@ LumenSplit implements an automated end-to-end delivery workflow:
 
 You can verify the transparency and security of LumenSplit on the Stellar Explorer (Testnet).
 
-- **Contract ID**: `CBRY2H3DOGBBO3NKECWQWXKXS3A2DLOIKJMA2DPVXAE5JF62S24IWDHV`
+- **Contract ID**: `CCQVUEHKGECRLHRW3BCJ5UMD4NUAEZC46HJOUX3CKDQBFEO3UTAZPIYW`
 - **Verify contract**: https://lab.stellar.org/smart-contracts/contract-explorer?$=network$id=testnet&label=Testnet&horizonUrl=https:////horizon-testnet.stellar.org&rpcUrl=https:////soroban-testnet.stellar.org&passphrase=Test%20SDF%20Network%20/;%20September%202015;;
 - **Verify Transactions**: https://lab.stellar.org/transaction/dashboard?$=network$id=testnet&label=Testnet&horizonUrl=https:////horizon-testnet.stellar.org&rpcUrl=https:////soroban-testnet.stellar.org&passphrase=Test%20SDF%20Network%20/;%20September%202015;;
 
@@ -92,5 +92,6 @@ Ensure you have a Freighter or albedo extension installed Check that you're on T
 ---
 
 ### **Community & Support**
+
 - **Developer**: Amaanullah Shaikh
 - **Network**: Stellar Testnet (Soroban)

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { server } from "../services/stellarService";
 import { connectFreighter, connectAlbedo } from "../services/walletService";
 import { WALLET_TYPES } from "../utils/constants";
@@ -15,7 +15,7 @@ export const useWallet = (updateStatus) => {
       const acc = await server.loadAccount(pubkey);
       const native = acc.balances.find((b) => b.asset_type === "native");
       setXlmBalance(native ? Number(native.balance).toFixed(2) : "0.00");
-    } catch (e) {
+    } catch {
       setXlmBalance("0.00");
       updateStatus("Account not funded. Please fund via Friendbot.", "error");
     }
@@ -42,8 +42,7 @@ export const useWallet = (updateStatus) => {
       setConnected(true);
       setShowWalletModal(false);
       updateStatus("Connected Successfully!", "success");
-    } catch (e) {
-      console.error("Connection failed", e);
+    } catch {
       updateStatus("Connect failed", "error");
     }
   };
