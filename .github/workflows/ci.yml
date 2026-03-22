@@ -1,4 +1,4 @@
-name: LumenSplit Full CI Pipeline
+name: CI Pipeline
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  contract-tests:
-    name: Smart Contract Tests
+  contract-checks:
+    name: Smart Contract Checks
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -18,11 +18,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Rust
+      - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
           targets: wasm32-unknown-unknown
+          components: rustfmt, clippy
+
+      - name: Check formatting
+        run: cargo fmt --check
+
+      - name: Run clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
 
       - name: Run contract tests
         run: cargo test
@@ -30,8 +37,8 @@ jobs:
       - name: Build Soroban contract
         run: cargo build --target wasm32-unknown-unknown --release
 
-  frontend-build:
-    name: Frontend Build
+  frontend-checks:
+    name: Frontend Lint and Build
     runs-on: ubuntu-latest
 
     steps:
@@ -42,9 +49,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: npm ci
+
+      - name: Run frontend lint
+        run: npm run lint
 
       - name: Build frontend
         run: npm run build

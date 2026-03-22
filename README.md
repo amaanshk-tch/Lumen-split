@@ -1,4 +1,4 @@
-# LumenSplit.
+# LumenSplit [![CI](https://github.com/amaanshk-tch/Lumen-split/actions/workflows/ci.yml/badge.svg)](https://github.com/amaanshk-tch/Lumen-split/actions/workflows/ci.yml)
 
 **LumenSplit** is a decentralized expense-splitting application built on the **Stellar Soroban** smart contract platform. It allows groups to manage shared expenses, track balances in real-time.
 
@@ -29,6 +29,15 @@
 - **Frontend**: React + Vite.
 - **Smart Contracts**: Soroban smart contracts.
 - **Wallet Integration**: Freighter, Albedo.
+
+---
+
+## CI/CD Pipeline
+
+LumenSplit implements an automated end-to-end delivery workflow:
+
+- **Continuous Integration**: GitHub Actions automatically runs Smart Contract tests (`cargo test`) and Frontend checks (`npm run build`) on every push to `main`.
+- **Continuous Deployment**: Automated deployments via Vercel ensure the latest stable version is always live.
 
 ---
 
@@ -79,3 +88,9 @@ Ensure you have a Freighter or albedo extension installed Check that you're on T
 ## Future Roadmap
 
 - **Instant Settlements**: Settle your debts with one click, executing real XLM transfers on-chain using Lumen-split.
+
+---
+
+### **Community & Support**
+- **Developer**: Amaanullah Shaikh
+- **Network**: Stellar Testnet (Soroban)
