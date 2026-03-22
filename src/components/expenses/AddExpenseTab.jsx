@@ -10,7 +10,6 @@ const AddExpenseTab = ({
   loadGroup,
   groups,
   selectedGroup,
-  publicKey,
   billAmount,
   setBillAmount,
   payer,

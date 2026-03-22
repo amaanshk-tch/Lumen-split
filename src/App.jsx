@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+
+import React, { useEffect, useState, useCallback } from "react";
 import { Address, TransactionBuilder, BASE_FEE, Contract } from "@stellar/stellar-sdk";
 import "./App.css";
 
