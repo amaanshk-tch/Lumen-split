@@ -87,6 +87,7 @@ export const signAndSubmit = async (publicKey, selectedWallet, buildFn) => {
         const sdkResp = await soroban.getTransaction(result.hash);
         status = sdkResp.status;
       } catch {
+        // Fallback if SDK getTransaction fails
       }
     }
 
